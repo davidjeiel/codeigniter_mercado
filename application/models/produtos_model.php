@@ -21,7 +21,7 @@
             $id = $usuario['id_usuario'];
             $this->db->where("vendido", true);
             $this->db->where("usuario_id", $id);
-            return $this->db->get("produtos")->result_array(   );
+            return $this->db->get("produtos")->result_array();
         }
 
         public function salva($produto)

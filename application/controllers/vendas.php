@@ -6,6 +6,7 @@
     {
         public function nova()
         {   	
+            autoriza();
             $this->load->helper(array("date"));
             
             $usuario = $this->session->userdata("usuario_logado");
@@ -22,10 +23,11 @@
 
         public function index()
         {
+            autoriza();
             $usuario = $this->session->userdata("usuario_logado");
             $this->load->model("produtos_model");
             $produtosVendidos = $this->produtos_model->buscaVendidos($usuario);
             $dados = array("produtosVendidos" => $produtosVendidos);
-            $this->load->view("vendas/index", $dados);
+            $this->load->template("vendas/index", $dados);            
         }
     }

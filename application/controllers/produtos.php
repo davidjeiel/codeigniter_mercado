@@ -8,16 +8,18 @@
             $produtos = $this->produtos_model->buscaDisponiveis();         
             $dados    = array( "produtos" => $produtos );
             $this->load->helper(array("url","currency"));
-            $this->load->view("produtos/index.php", $dados);
+            $this->load->template("produtos/index.php", $dados);
         }
 
         public function formulario()
         {
+            autoriza();
             $this->load->view('produtos/formulario');
         }
 
         public function novo()
         {
+            autoriza();
             $this->load->library("form_validation"); 
             $this->form_validation->set_rules("nome", "nome", "required|min_length[5]|callback_sem_a_palavra_melhor");
             $this->form_validation->set_rules("descricao", "descricao", "required|min_length[5]");
@@ -37,17 +39,18 @@
                 $this->session->set_flashdata("success", "Produto salvo com sucesso");
                 redirect("/");
             } else {
-                $this->load->view("produtos/formulario");
+                $this->load->template("produtos/formulario");
             }
         }
 
         public function mostra($id)
         {
+            autoriza();
             $this->load->model("produtos_model");
             $produto = $this->produtos_model->busca($id);
             $dados = array("produto" => $produto);
             $this->load->helper("typography");
-            $this->load->view("produtos/mostra", $dados);
+            $this->load->template("produtos/mostra", $dados);
         }
 
         public function sem_a_palavra_melhor($nome_produto)
